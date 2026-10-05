@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Python desde cero</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;700&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet"><style>:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F3EDE0;--page:#F7F4EC;--fg:#000;--mut:#464C58;--blue:#0EA5E9;--sec:#7DD3FC;--soft:#DDF3FD;--code:#464C58;--codefg:#fff;--btn:#F5D0FE;--bd:#d9d1c0;--on:#000;--s1:#d9d1c0;--s2:#fffdf6}
+:root[data-theme="dark"]{--bg:#1d2128;--page:#252a33;--fg:#F3EDE0;--mut:#c4cad6;--soft:#2f3a47;--code:#14171c;--bd:#3a4150;--s1:#171a20;--s2:#323946}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d2128;--page:#252a33;--fg:#F3EDE0;--mut:#c4cad6;--soft:#2f3a47;--code:#14171c;--bd:#3a4150;--s1:#171a20;--s2:#323946}}
+html{scroll-padding-top:20px;scroll-behavior:smooth}*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:500 21px/1.7 'Cormorant Garamond',Georgia,serif}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif}
+.lab{font:700 .8rem 'Libre Baskerville',Georgia,serif;margin:0}
+.bar{position:fixed;top:0;left:0;right:0;height:5px;background:var(--bg);z-index:9}.bar i{display:block;height:100%;width:0;background:var(--blue)}
+.cover{min-height:90vh;display:flex;align-items:center;padding:32px 18px}
+.cv{max-width:720px;margin:0 auto;width:100%;background:var(--blue);color:var(--on);border-radius:28px;padding:56px 30px;box-shadow:10px 10px 22px var(--s1),-10px -10px 22px var(--s2)}
+.cv h1{font-weight:700;font-size:clamp(3rem,13vw,5.5rem);line-height:.95;margin:.25em 0}
+.sub{font-size:1.35rem;max-width:30ch}
+.book{max-width:800px;margin:0 auto;padding:24px 14px 90px}
+.toc,.cap,.part{background:var(--page);padding:40px 28px;margin:0 0 34px;border-radius:28px;box-shadow:10px 10px 22px var(--s1),-10px -10px 22px var(--s2)}
+.part{background:var(--sec);color:#000;text-align:center;padding:50px 20px}.part h2{font-size:2.6rem;margin:.1em 0;color:#000;border:0}
+.toc h2{font-size:2.4rem;margin:0}.toc ol{padding:0;margin:1em 0 0;list-style:none}
+.toc li a{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--bd);color:var(--fg);text-decoration:none}
+.toc li a small{font:700 .75rem 'Libre Baskerville',Georgia,serif;color:var(--mut);white-space:nowrap;align-self:center}
+.toc li.wk{margin-top:1.1em;padding:6px 14px;background:var(--sec);color:#000;border-radius:12px;font-weight:700}
+.toc li a:hover span{text-decoration:underline;text-decoration-color:var(--blue);text-decoration-thickness:3px}
+.ch{background:var(--blue);color:var(--on);margin:-40px -28px 30px;padding:36px 28px;border-radius:28px 28px 0 0}
+.ch h1{font-weight:700;font-size:clamp(2rem,7vw,2.9rem);line-height:1.05;margin:.25em 0 0}
+.cap h2{font-weight:700;font-size:1.8rem;line-height:1.15;margin:1.6em 0 .5em;color:var(--mut);padding-bottom:.2em;border-bottom:4px solid var(--blue)}
+.cap h3{font-weight:700;font-size:1.3rem;margin:1.3em 0 .3em}
+.cap p{text-align:justify;hyphens:auto}.mut{color:var(--mut)}
+pre{position:relative;background:var(--code);color:var(--codefg);padding:16px;border-radius:16px;overflow-x:auto;font:14px/1.55 Consolas,Menlo,monospace;margin:.9em 0;box-shadow:inset 4px 4px 10px rgba(0,0,0,.35)}
+.cp{position:absolute;top:8px;right:8px;font:12px Arial,sans-serif;background:var(--btn);color:#000;border:0;border-radius:10px;padding:5px 10px;cursor:pointer}
+.box{background:var(--soft);padding:14px 18px;border-radius:18px;margin:1.2em 0;box-shadow:inset 4px 4px 9px var(--s1),inset -4px -4px 9px var(--s2)}
+.box.t{border-left:6px solid var(--blue)}.box p{margin:.5em 0;text-align:left}
+.ex{list-style:none;padding:0}.ex li{display:flex;gap:12px;margin:.7em 0;align-items:flex-start}
+.ex input{width:24px;height:24px;margin-top:5px;flex:0 0 auto;accent-color:var(--blue)}
+details{border-radius:16px;padding:8px 14px;margin:.9em 0;box-shadow:6px 6px 12px var(--s1),-6px -6px 12px var(--s2)}
+summary{cursor:pointer;font-weight:700;color:var(--mut)}
+code{font-family:Consolas,Menlo,monospace;font-size:.78em;background:var(--soft);padding:1px 6px;border-radius:6px}pre code{background:none;padding:0;font-size:inherit}
+table{border-collapse:collapse;width:100%;font-size:.9em;display:block;overflow-x:auto}td,th{border:1px solid var(--bd);padding:6px 10px;text-align:left}th{background:var(--sec);color:#000}
+.top{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:var(--btn);color:#000;font:700 .8rem 'Libre Baskerville',Georgia,serif;padding:10px 16px;border-radius:14px;text-decoration:none;box-shadow:4px 4px 10px var(--s1)}
+a:focus-visible,summary:focus-visible,.cp:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media (max-width:520px){body{font-size:20px}.toc,.cap,.part{padding:28px 16px;border-radius:22px}.ch{margin:-28px -16px 24px;padding:28px 16px;border-radius:22px 22px 0 0}.cap p{text-align:left}}
+</style></head><body><div class="bar"><i id="pb"></i></div>
+<section class="cover"><div class="cv"><p class="lab">Blitz Academy</p><h1>Python desde cero</h1><p class="sub">25 clases en 5 semanas, con ejercicios, tareas y un examen por semana.</p></div></section>
+<main class="book"><nav class="toc" id="indice"><h2>Índice</h2><p class="mut" id="pt"></p><ol><li><a href="#d0"><span>Antes de empezar: instala Python</span><small>Preliminares</small></a></li><li class="wk">Semana 1</li><li><a href="#d1"><span>Primeros pasos, print y variables</span><small>Día 1</small></a></li><li><a href="#d2"><span>Entrada de datos y operadores</span><small>Día 2</small></a></li><li><a href="#d3"><span>Decisiones con if</span><small>Día 3</small></a></li><li><a href="#d4"><span>Repetir con bucles</span><small>Día 4</small></a></li><li><a href="#d5"><span>Listas, funciones y mini proyecto</span><small>Día 5</small></a></li><li><a href="#e1"><span>Semana 1</span><small>Examen</small></a></li><li class="wk">Semana 2</li><li><a href="#d6"><span>Textos a fondo y diccionarios</span><small>Día 6</small></a></li><li><a href="#d7"><span>Errores, archivos y proyecto integrador</span><small>Día 7</small></a></li><li><a href="#d8"><span>Funciones a fondo</span><small>Día 8</small></a></li><li><a href="#d9"><span>Módulos y librerías</span><small>Día 9</small></a></li><li><a href="#d10"><span>JSON, CSV y proyecto</span><small>Día 10</small></a></li><li><a href="#e2"><span>Semana 2</span><small>Examen</small></a></li><li class="wk">Semana 3</li><li><a href="#d11"><span>Clases y objetos</span><small>Día 11</small></a></li><li><a href="#d12"><span>Métodos y estado del objeto</span><small>Día 12</small></a></li><li><a href="#d13"><span>Herencia</span><small>Día 13</small></a></li><li><a href="#d14"><span>Encapsulamiento y propiedades</span><small>Día 14</small></a></li><li><a href="#d15"><span>Proyecto del mes: Sistema de inventario</span><small>Día 15</small></a></li><li><a href="#e3"><span>Semana 3</span><small>Examen</small></a></li><li class="wk">Semana 4</li><li><a href="#d16"><span>Tuplas y conjuntos</span><small>Día 16</small></a></li><li><a href="#d17"><span>Comprensiones</span><small>Día 17</small></a></li><li><a href="#d18"><span>Pilas y colas</span><small>Día 18</small></a></li><li><a href="#d19"><span>Búsqueda y ordenamiento</span><small>Día 19</small></a></li><li><a href="#d20"><span>Proyecto del mes: Gestor de tareas</span><small>Día 20</small></a></li><li><a href="#e4"><span>Semana 4</span><small>Examen</small></a></li><li class="wk">Semana 5</li><li><a href="#d21"><span>Git y control de versiones</span><small>Día 21</small></a></li><li><a href="#d22"><span>APIs con requests</span><small>Día 22</small></a></li><li><a href="#d23"><span>Pruebas y depuración</span><small>Día 23</small></a></li><li><a href="#d24"><span>Introducción a Flask</span><small>Día 24</small></a></li><li><a href="#d25"><span>Proyecto final</span><small>Día 25</small></a></li><li><a href="#e5"><span>Semana 5</span><small>Examen</small></a></li><li><a href="#fin"><span>Lo que lograste</span><small>Epílogo</small></a></li></ol></nav><article class="cap" id="d0"><header class="ch"><p class="lab">Preliminares</p><h1>Antes de empezar: instala Python</h1></header>
+<div class="box"><b>Qué es programar:</b> escribir instrucciones paso a paso para que la computadora haga una tarea. La computadora hace exactamente lo que dices, ni más ni menos, así que los errores son normales y parte del aprendizaje.</div>
+<h3>Instalación</h3>
+<ul>
+<li><b>Windows/Mac:</b> descarga Python desde python.org. En Windows marca la casilla <b>"Add Python to PATH"</b> antes de instalar.</li>
+<li><b>Editor:</b> instala Visual Studio Code y su extensión "Python". Alternativa sin instalar nada: replit.com o Google Colab.</li>
+<li><b>Android:</b> la app Pydroid 3 sirve para practicar desde el celular.</li>
+</ul>
+<h3>Prueba que funciona</h3>
+<p>Crea un archivo <code>hola.py</code>, escribe esto y ejecútalo (botón ▶ en VS Code, o en la terminal: <code>python hola.py</code>):</p>
+<pre><code>print("Hola, mundo")</code></pre>
+<p>Si ves <code>Hola, mundo</code> en pantalla, ya eres programador. Lo demás es practicar.</p>
+<div class="box t"><b>Reglas de oro de la semana:</b> 1) Escribe el código tú, no copies y pegues. 2) Lee el mensaje de error: dice la línea del problema. 3) Practica todos los días, aunque sea poco.</div>
+</article><div class="part"><p class="lab">Parte 1</p><h2>Semana 1</h2></div><article class="cap" id="d1"><header class="ch"><p class="lab">Día 1</p><h1>Primeros pasos, print y variables</h1></header>
+<h3>Objetivo</h3><p>Mostrar texto en pantalla, guardar datos en variables y conocer los tipos básicos.</p>
+<h3>1. print() muestra información</h3>
+<pre><code>print("Hola")
+print(2 + 3)
+print("Me llamo", "Ana")</code></pre>
+<h3>2. Comentarios</h3>
+<p>Todo lo que va después de <code>#</code> Python lo ignora. Sirve para explicar tu código.</p>
+<pre><code># Esto es un comentario
+print("Esto sí se ejecuta")</code></pre>
+<h3>3. Variables</h3>
+<p>Una variable es una caja con nombre donde guardas un dato. Se crea con <code>=</code>.</p>
+<pre><code>nombre = "Carlos"
+edad = 18
+altura = 1.75
+estudiante = True
+print(nombre, edad)</code></pre>
+<h3>4. Tipos de datos</h3>
+<table><tr><th>Tipo</th><th>Qué guarda</th><th>Ejemplo</th></tr>
+<tr><td>str</td><td>texto</td><td>"hola"</td></tr>
+<tr><td>int</td><td>enteros</td><td>25</td></tr>
+<tr><td>float</td><td>decimales</td><td>3.14</td></tr>
+<tr><td>bool</td><td>verdadero o falso</td><td>True, False</td></tr></table>
+<p>Con <code>type(x)</code> ves el tipo de una variable.</p>
+<div class="box">Reglas de nombres: sin espacios, no empiezan con número, usa minúsculas con guion bajo (<code>mi_edad</code>). Python distingue mayúsculas: <code>Edad</code> y <code>edad</code> son distintas.</div>
+<h2>Conceptos a fondo</h2>
+<h3>Cómo lee Python tu código</h3>
+<p>Python es un <b>intérprete</b>: lee el archivo de arriba hacia abajo, una línea a la vez, y ejecuta cada instrucción en ese orden. Si una línea tiene un error, se detiene ahí y te dice el número de línea. Por eso una variable debe crearse <i>antes</i> de usarla.</p>
+<h3>Los textos (strings) en detalle</h3>
+<p>Un texto va entre comillas simples o dobles, da igual cuáles, pero deben abrir y cerrar igual.</p>
+<pre><code>a = "Hola"
+b = 'mundo'
+print(a + " " + b)    # unir textos: Hola mundo
+print("ja" * 3)       # repetir: jajaja
+print(len("Python"))  # cantidad de caracteres: 6
+print("Línea 1\nLínea 2")  # \n es salto de línea</code></pre>
+<h3>Reasignar variables</h3>
+<p>El valor de una variable puede cambiar. Python usa siempre el último valor guardado.</p>
+<pre><code>puntos = 10
+puntos = puntos + 5
+print(puntos)  # 15</code></pre>
+<h3>Errores comunes (y cómo leerlos)</h3>
+<table><tr><th>Error</th><th>Causa típica</th></tr>
+<tr><td>SyntaxError</td><td>comillas o paréntesis sin cerrar</td></tr>
+<tr><td>NameError</td><td>variable mal escrita o usada antes de crearla</td></tr>
+<tr><td>TypeError</td><td>mezclar tipos, como <code>"Edad: " + 18</code></td></tr>
+<tr><td>IndentationError</td><td>espacios al inicio de una línea sin motivo</td></tr></table>
+<p>Truco: lee el error de <b>abajo hacia arriba</b>. La última línea dice qué pasó y la anterior en qué línea.</p>
+<h2>Explicado con calma</h2>
+<p>Piensa en un programa como una receta: una lista de pasos que se siguen en orden. <code>print()</code> es la forma en que la computadora te "habla": lo que pongas entre paréntesis aparece en pantalla. Si es texto, va entre comillas; si es un número o una cuenta, va sin comillas y Python la calcula antes de mostrarla (<code>print(2 + 3)</code> muestra 5, mientras que <code>print("2 + 3")</code> muestra literalmente 2 + 3).</p>
+<p>Una variable es una etiqueta pegada a un dato. Cuando escribes <code>edad = 18</code>, Python guarda el 18 en memoria y le pega la etiqueta <code>edad</code>. Desde ese momento, escribir <code>edad</code> es lo mismo que escribir 18. Por eso puedes cambiar el valor en un solo lugar y todo el programa se actualiza.</p>
+<div class="box"><b>Para recordar:</b> el signo <code>=</code> en programación no significa "es igual a" como en matemáticas. Significa "guarda lo de la derecha en la variable de la izquierda".</div>
+<p><b>Ejemplo completo:</b> una mini ficha que usa todo lo del día.</p>
+<pre><code># Ficha de un personaje
+nombre = "Luna"
+nivel = 7
+vida = 85.5
+vivo = True
+print("Personaje:", nombre)
+print("Nivel:", nivel, "| Vida:", vida)
+print("Tipo de nivel:", type(nivel))</code></pre>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="1">
+<li><input type="checkbox"><span>Imprime tu nombre, tu edad y tu ciudad, cada uno en una línea.</span></li>
+<li><input type="checkbox"><span>Crea variables <code>nombre</code>, <code>edad</code>, <code>estatura</code> y <code>es_estudiante</code>, e imprime el tipo de cada una con <code>type()</code>.</span></li>
+<li><input type="checkbox"><span>Intercambia el valor de dos variables <code>a = 5</code> y <code>b = 9</code> (pista: usa una tercera variable temporal).</span></li>
+<li><input type="checkbox"><span>Provoca un error a propósito (escribe <code>pritn("hola")</code>), lee el mensaje y corrígelo.</span></li>
+</ul>
+<h2>Práctica extra</h2><ul class="ex" data-day="1"><li><input type="checkbox"><span>Crea la variable <code>producto = "Laptop"</code> y usa <code>len()</code> para mostrar cuántas letras tiene.</span></li><li><input type="checkbox"><span>Une dos textos con <code>+</code> para formar tu nombre completo e imprímelo.</span></li><li><input type="checkbox"><span>Imprime una línea de 30 guiones usando <code>"-" * 30</code>.</span></li><li><input type="checkbox"><span>Guarda un número en <code>x</code>, súmale 10, multiplícalo por 2 y muestra el resultado, reasignando <code>x</code> en cada paso.</span></li></ul><h2>Tarea 1</h2>
+<div class="box t">
+<p><b>A)</b> Haz un programa que imprima una "tarjeta de presentación" con al menos 5 datos tuyos (nombre, edad, ciudad, pasatiempo, comida favorita) guardados en variables.</p>
+<p><b>B)</b> Dibuja un dibujo con <code>print()</code> usando símbolos (una casa, un gato, tu inicial).</p>
+</div>
+<details><summary>Ver solución del ejercicio 3</summary><pre><code>a = 5
+b = 9
+temp = a
+a = b
+b = temp
+print(a, b)  # 9 5</code></pre></details>
+</article><article class="cap" id="d2"><header class="ch"><p class="lab">Día 2</p><h1>Entrada de datos y operadores</h1></header>
+<h3>Objetivo</h3><p>Pedir datos al usuario, hacer cálculos y construir textos con variables.</p>
+<h3>1. input() pide datos</h3>
+<pre><code>nombre = input("¿Cómo te llamas? ")
+print("Hola", nombre)</code></pre>
+<div class="box"><b>Importante:</b> <code>input()</code> siempre devuelve texto. Para usarlo como número conviértelo:</div>
+<pre><code>edad = int(input("Edad: "))      # entero
+precio = float(input("Precio: ")) # decimal
+print(edad + 1)</code></pre>
+<h3>2. Operadores matemáticos</h3>
+<table><tr><th>Op</th><th>Significado</th><th>Ej.</th></tr>
+<tr><td>+ - *</td><td>suma, resta, multiplicación</td><td>3 * 4 = 12</td></tr>
+<tr><td>/</td><td>división (decimal)</td><td>7 / 2 = 3.5</td></tr>
+<tr><td>//</td><td>división entera</td><td>7 // 2 = 3</td></tr>
+<tr><td>%</td><td>residuo</td><td>7 % 2 = 1</td></tr>
+<tr><td>**</td><td>potencia</td><td>2 ** 3 = 8</td></tr></table>
+<p>El orden es el de matemáticas: primero paréntesis, luego potencias, luego * / y al final + -.</p>
+<h3>3. f-strings: texto con variables</h3>
+<pre><code>nombre = "Ana"
+edad = 20
+print(f"{nombre} tiene {edad} años")
+print(f"El doble es {edad * 2}")</code></pre>
+<h2>Conceptos a fondo</h2>
+<h3>Conversión de tipos</h3>
+<p>Python no suma texto con número. Debes convertir con <code>int()</code>, <code>float()</code> o <code>str()</code>.</p>
+<pre><code>print("5" + "3")        # 53 (junta textos)
+print(int("5") + int("3")) # 8 (suma números)
+print("Edad: " + str(18))  # convertir número a texto</code></pre>
+<p>Si el usuario escribe letras donde esperas un número, <code>int()</code> da <b>ValueError</b>. Más adelante aprenderás a controlarlo.</p>
+<h3>Operadores de asignación abreviados</h3>
+<pre><code>x = 10
+x += 5   # x = x + 5  -> 15
+x -= 3   # 12
+x *= 2   # 24
+x //= 5  # 4</code></pre>
+<h3>Redondear y dar formato</h3>
+<pre><code>print(round(3.14159, 2))   # 3.14
+pi = 3.14159
+print(f"{pi:.2f}")         # 3.14 (2 decimales)
+precio = 1500.5
+print(f"${precio:,.2f}")   # $1,500.50</code></pre>
+<h3>Orden de operaciones</h3>
+<p><code>2 + 3 * 4</code> da 14, no 20. Usa paréntesis para controlar: <code>(2 + 3) * 4</code> da 20. Ante la duda, pon paréntesis.</p>
+<h3>print: coma o suma</h3>
+<p><code>print("Edad:", 18)</code> funciona con coma porque agrega un espacio y acepta cualquier tipo. Con <code>+</code> ambos deben ser texto. Lo más cómodo es el f-string.</p>
+<h2>Explicado con calma</h2>
+<p>Hasta ahora tu programa hablaba solo. Con <code>input()</code> empieza una conversación: el programa se detiene, espera a que la persona escriba y presione Enter, y guarda lo escrito en una variable. Lo más importante que debes memorizar es que <b>todo lo que llega por input() es texto</b>, aunque el usuario escriba 25. Si lo vas a usar en una cuenta, envuélvelo en <code>int()</code> o <code>float()</code>.</p>
+<p>La división entera <code>//</code> y el residuo <code>%</code> parecen raros al inicio, pero son muy útiles. Si tienes 125 segundos: <code>125 // 60</code> son 2 minutos completos y <code>125 % 60</code> son 5 segundos que sobran. Es exactamente la división de la primaria: cociente y residuo.</p>
+<pre><code>total = 125
+minutos = total // 60
+segundos = total % 60
+print(f"{total} s = {minutos} min {segundos} s")</code></pre>
+<p>Los f-strings (la <code>f</code> antes de las comillas) te dejan escribir variables y cuentas dentro de llaves <code>{}</code>. Son la forma más limpia de armar mensajes y evitan errores de tipo.</p>
+<div class="box"><b>Receta de un programa típico:</b> 1) pedir datos con <code>input</code>, 2) convertirlos al tipo correcto, 3) hacer el cálculo, 4) mostrar el resultado con un f-string.</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="2">
+<li><input type="checkbox"><span>Pide tu nombre y saluda con un f-string.</span></li>
+<li><input type="checkbox"><span>Pide dos números e imprime su suma, resta, multiplicación y división.</span></li>
+<li><input type="checkbox"><span>Pide el radio de un círculo y calcula su área (<code>3.1416 * radio ** 2</code>).</span></li>
+<li><input type="checkbox"><span>Pide un número de segundos y conviértelo a minutos y segundos sobrantes (usa <code>//</code> y <code>%</code>).</span></li>
+</ul>
+<h2>Práctica extra</h2><ul class="ex" data-day="2"><li><input type="checkbox"><span>Pide dos números y muestra el promedio con 2 decimales usando <code>:.2f</code>.</span></li><li><input type="checkbox"><span>Pide el precio de un producto y calcula el IVA de 16% y el total.</span></li><li><input type="checkbox"><span>Pide un número y muestra su cuadrado y su cubo.</span></li><li><input type="checkbox"><span>Pide el nombre y el año de nacimiento, y escribe: "Ana naciste en 2005 y cumples X años este año".</span></li></ul><h2>Tarea 2</h2>
+<div class="box t">
+<p><b>A) Calculadora de propina:</b> pide el total de la cuenta y el porcentaje de propina. Muestra la propina y el total a pagar.</p>
+<p><b>B) Conversor:</b> pide grados Celsius y muestra Fahrenheit (<code>c * 9 / 5 + 32</code>).</p>
+<p><b>C) Reto:</b> pide el año de nacimiento y calcula la edad aproximada.</p>
+</div>
+<details><summary>Ver solución de la propina</summary><pre><code>cuenta = float(input("Total: "))
+pct = float(input("% de propina: "))
+propina = cuenta * pct / 100
+print(f"Propina: {propina}")
+print(f"Total: {cuenta + propina}")</code></pre></details>
+</article><article class="cap" id="d3"><header class="ch"><p class="lab">Día 3</p><h1>Decisiones con if</h1></header>
+<h3>Objetivo</h3><p>Hacer que el programa tome caminos distintos según una condición.</p>
+<h3>1. Comparaciones (dan True o False)</h3>
+<table><tr><td>==</td><td>igual</td><td>!=</td><td>diferente</td></tr>
+<tr><td>&gt;</td><td>mayor</td><td>&lt;</td><td>menor</td></tr>
+<tr><td>&gt;=</td><td>mayor o igual</td><td>&lt;=</td><td>menor o igual</td></tr></table>
+<div class="box">Cuidado: <code>=</code> guarda un valor, <code>==</code> compara.</div>
+<h3>2. if, elif, else</h3>
+<pre><code>edad = int(input("Edad: "))
+if edad &gt;= 18:
+    print("Eres mayor de edad")
+elif edad &gt;= 12:
+    print("Eres adolescente")
+else:
+    print("Eres niño")</code></pre>
+<p>Los <b>dos puntos</b> y la <b>sangría</b> (4 espacios) son obligatorios. La sangría le dice a Python qué código pertenece al if.</p>
+<h3>3. and, or, not</h3>
+<pre><code>if edad &gt;= 18 and tiene_ine:
+    print("Puedes votar")
+if dia == "sábado" or dia == "domingo":
+    print("Fin de semana")</code></pre>
+<h2>Conceptos a fondo</h2>
+<h3>Qué es un booleano</h3>
+<p>Toda comparación produce <code>True</code> o <code>False</code>, y el <code>if</code> solo ejecuta su bloque cuando la condición es <code>True</code>.</p>
+<pre><code>print(5 &gt; 3)    # True
+print(5 == 3)   # False
+es_mayor = 20 &gt;= 18
+print(es_mayor) # True</code></pre>
+<h3>Tabla de verdad</h3>
+<table><tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th></tr>
+<tr><td>True</td><td>True</td><td>True</td><td>True</td></tr>
+<tr><td>True</td><td>False</td><td>False</td><td>True</td></tr>
+<tr><td>False</td><td>False</td><td>False</td><td>False</td></tr></table>
+<p><code>and</code> exige que ambas sean verdaderas; <code>or</code> basta con una; <code>not</code> invierte el valor.</p>
+<h3>if dentro de if (anidados)</h3>
+<pre><code>usuario = input("Usuario: ")
+if usuario == "admin":
+    clave = input("Clave: ")
+    if clave == "1234":
+        print("Bienvenido")
+    else:
+        print("Clave incorrecta")
+else:
+    print("Usuario no existe")</code></pre>
+<h3>Comparar textos</h3>
+<pre><code>resp = input("¿Sigues? (si/no): ").lower()
+if resp == "si":
+    print("Continuamos")
+if "a" in "manzana":   # in busca dentro de un texto
+    print("Tiene la letra a")</code></pre>
+<p><code>.lower()</code> pasa a minúsculas para que "SI", "Si" y "si" valgan igual.</p>
+<h3>Errores comunes</h3>
+<ul><li>Usar <code>=</code> en vez de <code>==</code> dentro del if.</li><li>Olvidar los dos puntos <code>:</code> al final de if/elif/else.</li><li>Comparar un texto con un número: <code>input()</code> devuelve texto, conviértelo con <code>int()</code>.</li><li>Mala sangría: todo lo que pertenece al if lleva los mismos 4 espacios.</li></ul>
+<h2>Explicado con calma</h2>
+<p>Hasta ahora todas las líneas se ejecutaban siempre. Con <code>if</code> el programa empieza a <i>decidir</i>. Una condición es una pregunta que se responde con sí (<code>True</code>) o no (<code>False</code>). Si la respuesta es sí, se ejecuta el bloque con sangría; si es no, Python lo salta.</p>
+<p>Con <code>elif</code> y <code>else</code> armas una escalera: Python revisa de arriba hacia abajo y entra solo al <b>primer</b> bloque cuya condición sea verdadera. Por eso el orden importa. En el ejemplo de la calificación, si preguntaras primero <code>&gt;= 70</code>, un 95 nunca llegaría a ser "Excelente".</p>
+<pre><code>nota = int(input("Calificación: "))
+if nota &gt;= 90:
+    print("Excelente")
+elif nota &gt;= 70:
+    print("Aprobado")
+else:
+    print("Reprobado")</code></pre>
+<p>Piensa en <code>and</code> como "los dos deben cumplirse" y en <code>or</code> como "con uno basta". Y recuerda: <code>%</code> te sirve para decidir. Un número es par si <code>n % 2 == 0</code>; es múltiplo de 5 si <code>n % 5 == 0</code>.</p>
+<div class="box"><b>Truco para depurar:</b> si un if no hace lo que esperas, imprime la condición con <code>print(edad &gt;= 18)</code> y verás si da True o False.</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="3">
+<li><input type="checkbox"><span>Pide un número e indica si es positivo, negativo o cero.</span></li>
+<li><input type="checkbox"><span>Pide un número e indica si es par o impar (usa <code>%</code>).</span></li>
+<li><input type="checkbox"><span>Pide una calificación (0-100) y muestra: 90+ "Excelente", 70+ "Aprobado", menos "Reprobado".</span></li>
+<li><input type="checkbox"><span>Pide una contraseña y di si es correcta comparándola con una que tú definas.</span></li>
+</ul>
+<h2>Práctica extra</h2><ul class="ex" data-day="3"><li><input type="checkbox"><span>Pide un día de la semana (con <code>.lower()</code>) y di si es laboral o fin de semana.</span></li><li><input type="checkbox"><span>Pide una letra e indica si es vocal usando <code>in "aeiou"</code>.</span></li><li><input type="checkbox"><span>Pide usuario y contraseña (ambos deben coincidir con los tuyos) usando <code>and</code>.</span></li><li><input type="checkbox"><span>Pide la edad y los ingresos; muestra si califica para un crédito (edad 18 o más <b>y</b> ingresos mayores a 8000).</span></li></ul><h2>Tarea 3</h2>
+<div class="box t">
+<p><b>A)</b> Pide tres números y muestra cuál es el mayor.</p>
+<p><b>B)</b> Pide un año e indica si es bisiesto (divisible entre 4, pero no entre 100, salvo que sea divisible entre 400).</p>
+<p><b>C) Cajero:</b> define un saldo de 1000, pide un retiro y responde si se puede o no, mostrando el saldo restante.</p>
+</div>
+<details><summary>Ver solución de par o impar</summary><pre><code>n = int(input("Número: "))
+if n % 2 == 0:
+    print("Par")
+else:
+    print("Impar")</code></pre></details>
+</article><article class="cap" id="d4"><header class="ch"><p class="lab">Día 4</p><h1>Repetir con bucles</h1></header>
+<h3>Objetivo</h3><p>Repetir instrucciones sin copiarlas muchas veces.</p>
+<h3>1. for con range()</h3>
+<pre><code>for i in range(5):        # 0,1,2,3,4
+    print(i)
+for i in range(1, 6):     # 1 al 5
+    print(i)
+for i in range(0, 11, 2): # de 2 en 2
+    print(i)</code></pre>
+<h3>2. while: repite mientras una condición sea verdadera</h3>
+<pre><code>contador = 1
+while contador &lt;= 5:
+    print(contador)
+    contador += 1   # sin esto el bucle sería infinito</code></pre>
+<div class="box">Si se cicla, presiona <b>Ctrl + C</b> en la terminal para detenerlo.</div>
+<h3>3. Acumuladores</h3>
+<pre><code>suma = 0
+for n in range(1, 11):
+    suma += n
+print(suma)  # 55</code></pre>
+<h3>4. break</h3>
+<pre><code>while True:
+    clave = input("Clave: ")
+    if clave == "python":
+        print("Correcto")
+        break</code></pre>
+<h2>Conceptos a fondo</h2>
+<h3>Cuándo usar for y cuándo while</h3>
+<p>Usa <b>for</b> cuando sabes cuántas veces repetir (10 veces, una vez por cada elemento). Usa <b>while</b> cuando no lo sabes (hasta que el usuario acierte, hasta que escriba "salir").</p>
+<h3>Cómo "corre" un bucle (prueba de escritorio)</h3>
+<pre><code>suma = 0
+for i in range(1, 4):
+    suma += i
+# vuelta 1: i=1, suma=1
+# vuelta 2: i=2, suma=3
+# vuelta 3: i=3, suma=6
+print(suma)  # 6</code></pre>
+<p>Seguir el valor de cada variable vuelta por vuelta en papel es la mejor forma de entender un bucle.</p>
+<h3>range() con detalle</h3>
+<p><code>range(inicio, fin, paso)</code>: el <b>fin nunca se incluye</b>. <code>range(1, 6)</code> da 1,2,3,4,5. Para contar hacia atrás: <code>range(5, 0, -1)</code>.</p>
+<h3>for sobre textos</h3>
+<pre><code>for letra in "Python":
+    print(letra)</code></pre>
+<h3>continue y break</h3>
+<pre><code>for i in range(1, 8):
+    if i == 3:
+        continue   # salta esta vuelta
+    if i == 6:
+        break      # termina el bucle
+    print(i)       # 1 2 4 5</code></pre>
+<h3>Bucles anidados</h3>
+<pre><code>for fila in range(1, 4):
+    for col in range(1, 4):
+        print(fila * col, end=" ")
+    print()</code></pre>
+<p><code>end=" "</code> evita el salto de línea. El bucle de dentro se completa entero en cada vuelta del de fuera.</p>
+<h3>Errores comunes</h3>
+<ul><li><b>Bucle infinito:</b> en un while olvidar actualizar la variable (<code>contador += 1</code>).</li><li><b>Error por uno:</b> esperar que <code>range(5)</code> llegue hasta 5; llega hasta 4.</li><li>Poner el <code>print</code> con sangría equivocada y que se repita (o no) cuando no debe.</li></ul>
+<h2>Explicado con calma</h2>
+<p>Imagina que debes escribir tu nombre 100 veces. Copiar y pegar sería absurdo; un bucle lo hace en dos líneas. Un bucle ejecuta el mismo bloque una y otra vez, y cada repetición se llama <b>vuelta</b> o iteración.</p>
+<p>En un <code>for i in range(1, 6)</code> la variable <code>i</code> toma un valor distinto en cada vuelta (1, luego 2, luego 3...). Tú no la actualizas: Python lo hace solo. En un <code>while</code>, en cambio, <b>tú</b> eres responsable de que la condición algún día deje de cumplirse; si no, el bucle es infinito.</p>
+<p>Un patrón que verás toda tu vida es el <b>acumulador</b>: una variable que empieza en 0 (o en 1 si multiplicas) y va juntando resultados vuelta tras vuelta.</p>
+<pre><code>factorial = 1
+for i in range(1, 6):
+    factorial *= i      # 1, 2, 6, 24, 120
+print(factorial)        # 120</code></pre>
+<div class="box t"><b>Ejercicio mental:</b> antes de ejecutar un bucle, escribe en papel una tabla con una columna por variable y una fila por vuelta. Si tu tabla coincide con lo que imprime Python, entendiste el bucle.</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="4">
+<li><input type="checkbox"><span>Imprime los números del 1 al 20.</span></li>
+<li><input type="checkbox"><span>Imprime la tabla de multiplicar del número que pida el usuario.</span></li>
+<li><input type="checkbox"><span>Suma los números del 1 al 100 con un bucle.</span></li>
+<li><input type="checkbox"><span>Pide una contraseña hasta que el usuario la acierte (while + break).</span></li>
+</ul>
+<h2>Práctica extra</h2><ul class="ex" data-day="4"><li><input type="checkbox"><span>Cuenta regresiva de 10 a 1 y al final imprime "¡Despegue!".</span></li><li><input type="checkbox"><span>Pide un texto e imprime cada letra en una línea distinta.</span></li><li><input type="checkbox"><span>Pide 5 números con un bucle y muestra su suma y su promedio.</span></li><li><input type="checkbox"><span>Imprime las tablas del 1 al 3 con bucles anidados.</span></li></ul><h2>Tarea 4</h2>
+<div class="box t">
+<p><b>A)</b> Imprime solo los números pares del 1 al 50.</p>
+<p><b>B)</b> Pide un número n y calcula su factorial (5! = 5·4·3·2·1).</p>
+<p><b>C) FizzBuzz:</b> del 1 al 30 imprime "Fizz" si es múltiplo de 3, "Buzz" si es de 5, "FizzBuzz" si es de ambos, o el número en otro caso.</p>
+<p><b>D) Triángulo:</b> imprime un triángulo de asteriscos de 5 filas (<code>print("*" * i)</code>).</p>
+</div>
+<details><summary>Ver solución de la tabla</summary><pre><code>n = int(input("Número: "))
+for i in range(1, 11):
+    print(f"{n} x {i} = {n * i}")</code></pre></details>
+</article><article class="cap" id="d5"><header class="ch"><p class="lab">Día 5</p><h1>Listas, funciones y mini proyecto</h1></header>
+<h3>Objetivo</h3><p>Guardar varios datos, reutilizar código y juntar todo en un juego.</p>
+<h3>1. Listas</h3>
+<pre><code>frutas = ["manzana", "pera", "uva"]
+print(frutas[0])          # manzana (empieza en 0)
+frutas.append("mango")    # agregar
+frutas.remove("pera")     # quitar
+print(len(frutas))        # cuántos hay
+for f in frutas:
+    print(f)</code></pre>
+<h3>2. Funciones</h3>
+<p>Una función es un bloque de código con nombre que puedes usar muchas veces.</p>
+<pre><code>def saludar(nombre):
+    print(f"Hola {nombre}")
+
+def sumar(a, b):
+    return a + b
+
+saludar("Ana")
+resultado = sumar(3, 4)
+print(resultado)  # 7</code></pre>
+<p><code>return</code> devuelve un valor para guardarlo; <code>print</code> solo lo muestra.</p>
+<h3>3. Módulo random</h3>
+<pre><code>import random
+print(random.randint(1, 10))  # número al azar</code></pre>
+<h2>Conceptos a fondo</h2>
+<h3>Listas: más herramientas</h3>
+<pre><code>nums = [30, 10, 20]
+print(nums[-1])      # 20 (último elemento)
+print(nums[0:2])     # [30, 10] (rebanada, sin incluir el 2)
+nums.sort()          # ordena: [10, 20, 30]
+nums.insert(1, 15)   # inserta en la posición 1
+print(sum(nums), min(nums), max(nums))
+print(20 in nums)    # True</code></pre>
+<p>Las posiciones (índices) empiezan en 0. Pedir una posición que no existe da <b>IndexError</b>.</p>
+<h3>Funciones: partes</h3>
+<ul><li><b>def:</b> palabra para definir la función.</li><li><b>Parámetros:</b> los datos que recibe (<code>a</code>, <code>b</code>).</li><li><b>Argumentos:</b> los valores reales al llamarla (<code>sumar(3, 4)</code>).</li><li><b>return:</b> el valor que entrega y termina la función.</li></ul>
+<pre><code>def saludar(nombre, saludo="Hola"):  # valor por defecto
+    return f"{saludo}, {nombre}"
+
+print(saludar("Ana"))            # Hola, Ana
+print(saludar("Luis", "Buenas")) # Buenas, Luis</code></pre>
+<h3>Variables locales</h3>
+<p>Una variable creada dentro de una función solo existe ahí. Si intentas usarla afuera da NameError. Para sacar datos, usa <code>return</code>.</p>
+<h3>Por qué usar funciones</h3>
+<p>Evitan repetir código, lo hacen más ordenado y puedes probar cada parte por separado. Regla útil: una función, una tarea.</p>
+<h3>Errores comunes</h3>
+<ul><li>Olvidar el <code>return</code> y recibir <code>None</code>.</li><li>Definir la función pero nunca llamarla.</li><li>Llamarla con menos argumentos de los que pide (TypeError).</li></ul>
+<h2>Explicado con calma</h2>
+<p>Una lista es una fila de casilleros numerados desde 0. Es la herramienta para cuando tienes "muchos de lo mismo": nombres, calificaciones, precios. Combinada con <code>for</code>, procesas todos sus elementos con pocas líneas.</p>
+<p>Una función es una receta con nombre. La defines una vez con <code>def</code> y la usas cuantas veces quieras. Los <b>parámetros</b> son los ingredientes que pide; <code>return</code> es el platillo terminado que te entrega. Si la función solo hace <code>print</code>, el resultado se muestra pero no puedes guardarlo en una variable; con <code>return</code> sí.</p>
+<pre><code>def promedio(lista):
+    return sum(lista) / len(lista)
+
+notas = [8, 9, 10, 7]
+print(f"Promedio: {promedio(notas):.1f}")  # 8.5</code></pre>
+<p>El proyecto final junta casi todo: un número al azar (<code>random</code>), un bucle que no sabes cuánto durará (<code>while</code>), decisiones (<code>if/elif/else</code>) y un contador. Si te atoras, divide el problema: primero haz que pida un número, luego que compare, luego que repita, luego que cuente.</p>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="5">
+<li><input type="checkbox"><span>Crea una lista con 5 nombres e imprímelos con un for.</span></li>
+<li><input type="checkbox"><span>Crea una función <code>area_rectangulo(base, altura)</code> que devuelva el área.</span></li>
+<li><input type="checkbox"><span>Crea una función <code>es_par(n)</code> que devuelva True o False.</span></li>
+<li><input type="checkbox"><span>Dada una lista de números, calcula la suma y el promedio.</span></li>
+</ul>
+<h2>Proyecto final de la semana: Adivina el número</h2>
+<div class="box t">
+<p>El programa elige un número secreto del 1 al 20. El usuario adivina; el programa dice "más alto" o "más bajo" hasta que acierte, y al final muestra en cuántos intentos lo logró.</p>
+<p>Usa: <code>random.randint</code>, <code>while</code>, <code>input</code>, <code>if/elif/else</code> y un contador.</p>
+</div>
+<details><summary>Ver solución</summary><pre><code>import random
+secreto = random.randint(1, 20)
+intentos = 0
+while True:
+    n = int(input("Adivina (1-20): "))
+    intentos += 1
+    if n &lt; secreto:
+        print("Más alto")
+    elif n &gt; secreto:
+        print("Más bajo")
+    else:
+        print(f"¡Ganaste en {intentos} intentos!")
+        break</code></pre></details>
+<h2>Práctica extra</h2><ul class="ex" data-day="5"><li><input type="checkbox"><span>Crea una lista de 5 números, ordénala y muestra el mayor y el menor.</span></li><li><input type="checkbox"><span>Crea la función <code>cuadrado(n)</code> y úsala dentro de un for del 1 al 5.</span></li><li><input type="checkbox"><span>Crea <code>saludar(nombre, saludo="Hola")</code> y pruébala con y sin el segundo argumento.</span></li><li><input type="checkbox"><span>Crea una lista vacía, pide 3 nombres con un bucle y agrégalos con <code>append</code>; al final muéstrala.</span></li></ul><h2>Tarea 5 (reto extra)</h2>
+<div class="box t">
+<p><b>A)</b> Mejora el juego: limita a 5 intentos y permite jugar otra vez.</p>
+<p><b>B) Lista de compras:</b> menú con while: 1) agregar producto, 2) ver lista, 3) salir.</p>
+<p><b>C)</b> Función <code>mayor(lista)</code> que devuelva el número más grande sin usar <code>max()</code>.</p>
+</div>
+</article><article class="cap" id="e1"><header class="ch"><p class="lab">Examen</p><h1>Semana 1</h1></header><p>Responde en <b>Google Forms</b> con respuesta de párrafo (2 a 4 líneas, con tus propias palabras). Cada pregunta teórica vale 10 puntos y el programa 50.</p><h2>Parte teórica</h2><ol><li>¿Qué es una variable y qué hace el signo <code>=</code> en Python?</li><li>Menciona los cuatro tipos de datos básicos y cómo ver el tipo de una variable.</li><li>¿Por qué <code>input()</code> siempre devuelve texto y cómo se usa como número?</li><li>Explica la diferencia entre <code>=</code> y <code>==</code> y para qué sirven <code>if</code>, <code>elif</code> y <code>else</code>.</li><li>¿Cuándo conviene usar <code>for</code> y cuándo <code>while</code>?</li></ol><h2>Parte práctica (pregunta 6)</h2><div class="box t"><p>Programa que pida números hasta que el usuario escriba 0, y al final muestre cuántos fueron pares y la suma de todos.</p><p>Pega tu código completo en la respuesta del formulario.</p></div></article><div class="part"><p class="lab">Parte 2</p><h2>Semana 2</h2></div><article class="cap" id="d6"><header class="ch"><p class="lab">Día 6</p><h1>Textos a fondo y diccionarios</h1></header>
+<h3>Objetivo</h3><p>Manipular textos con sus métodos y guardar datos relacionados con etiquetas usando diccionarios.</p>
+<h3>1. Los textos son secuencias</h3>
+<p>Cada letra de un texto tiene una posición, igual que en una lista. Se empieza a contar desde 0 y se puede usar índice negativo para contar desde el final.</p>
+<pre><code>palabra = "Python"
+print(palabra[0])     # P
+print(palabra[-1])    # n
+print(palabra[0:3])   # Pyt (rebanada: no incluye el 3)
+print(palabra[2:])    # thon</code></pre>
+<h3>2. Métodos de texto</h3>
+<p>Un método es una función que "pertenece" al dato y se llama con punto.</p>
+<table><tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr>
+<tr><td>.upper() / .lower()</td><td>mayúsculas / minúsculas</td><td>"hola".upper() → "HOLA"</td></tr>
+<tr><td>.strip()</td><td>quita espacios de los extremos</td><td>"  hi ".strip() → "hi"</td></tr>
+<tr><td>.replace(a, b)</td><td>cambia a por b</td><td>"casa".replace("a","o") → "coso"</td></tr>
+<tr><td>.split()</td><td>corta en una lista</td><td>"a b c".split() → ["a","b","c"]</td></tr>
+<tr><td>.join(lista)</td><td>une una lista en un texto</td><td>"-".join(["a","b"]) → "a-b"</td></tr>
+<tr><td>.startswith(x)</td><td>¿empieza con x?</td><td>"hola".startswith("ho") → True</td></tr></table>
+<div class="box">Los textos son <b>inmutables</b>: los métodos no cambian el original, devuelven uno nuevo. Para conservarlo, guárdalo: <code>nombre = nombre.strip()</code>.</div>
+<h3>3. Diccionarios</h3>
+<p>Una lista guarda datos por posición; un diccionario los guarda por <b>nombre</b> (clave). Es como una ficha: cada dato tiene su etiqueta.</p>
+<pre><code>alumno = {"nombre": "Ana", "edad": 19, "carrera": "Sistemas"}
+print(alumno["nombre"])          # Ana
+alumno["edad"] = 20              # modificar
+alumno["ciudad"] = "Poza Rica"   # agregar
+print(alumno.get("telefono", "sin dato"))  # evita error si no existe
+for clave, valor in alumno.items():
+    print(clave, "->", valor)</code></pre>
+<h2>Conceptos a fondo</h2>
+<h3>Cuándo usar lista y cuándo diccionario</h3>
+<p>Usa una <b>lista</b> cuando importa el orden o tienes muchos elementos iguales (calificaciones). Usa un <b>diccionario</b> cuando cada dato tiene un significado distinto (nombre, edad, correo). Y puedes combinarlos: una lista de diccionarios es una pequeña base de datos.</p>
+<pre><code>alumnos = [
+    {"nombre": "Ana", "nota": 9},
+    {"nombre": "Luis", "nota": 7},
+]
+for a in alumnos:
+    print(f"{a['nombre']}: {a['nota']}")</code></pre>
+<h3>Contar con diccionarios</h3>
+<pre><code>conteo = {}
+for letra in "banana":
+    conteo[letra] = conteo.get(letra, 0) + 1
+print(conteo)   # {'b': 1, 'a': 3, 'n': 2}</code></pre>
+<h3>Errores comunes</h3>
+<ul><li><b>KeyError:</b> pedir una clave que no existe. Usa <code>.get()</code> o revisa con <code>if clave in dic</code>.</li><li>Olvidar que <code>split()</code> devuelve una lista, no un texto.</li><li>Creer que <code>nombre.upper()</code> modifica <code>nombre</code> sin reasignar.</li></ul>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="6">
+<li><input type="checkbox"><span>Pide una palabra e imprime su primera letra, su última letra y su longitud.</span></li>
+<li><input type="checkbox"><span>Pide una frase y muéstrala en mayúsculas, sin espacios extra al inicio y final.</span></li>
+<li><input type="checkbox"><span>Pide una frase, usa <code>split()</code> y cuenta cuántas palabras tiene.</span></li>
+<li><input type="checkbox"><span>Crea un diccionario con tus datos (nombre, edad, ciudad) e imprímelos con un <code>for</code> y <code>.items()</code>.</span></li>
+</ul>
+<h2>Práctica extra</h2>
+<ul class="ex" data-day="6"><li><input type="checkbox"><span>Pide un texto e imprímelo al revés usando <code>texto[::-1]</code>.</span></li><li><input type="checkbox"><span>Cuenta cuántas vocales tiene una palabra con un bucle y <code>in "aeiou"</code>.</span></li><li><input type="checkbox"><span>Reemplaza todos los espacios de una frase por guiones.</span></li><li><input type="checkbox"><span>Crea un diccionario de 3 productos con su precio y calcula el total.</span></li></ul>
+<h2>Tarea 6</h2>
+<div class="box t">
+<p><b>A) Palíndromo:</b> pide una palabra e indica si se lee igual al derecho y al revés (por ejemplo "anilina").</p>
+<p><b>B) Contador de letras:</b> pide una frase y muestra cuántas veces aparece cada letra usando un diccionario.</p>
+<p><b>C) Mini agenda:</b> crea un diccionario nombre → teléfono, pide un nombre y muestra su teléfono o "no existe".</p>
+</div>
+<details><summary>Ver solución del palíndromo</summary><pre><code>p = input("Palabra: ").lower().strip()
+if p == p[::-1]:
+    print("Es palíndromo")
+else:
+    print("No es palíndromo")</code></pre></details>
+</article><article class="cap" id="d7"><header class="ch"><p class="lab">Día 7</p><h1>Errores, archivos y proyecto integrador</h1></header>
+<h3>Objetivo</h3><p>Evitar que el programa se rompa, guardar datos en un archivo y juntar todo lo aprendido en una agenda.</p>
+<h3>1. try / except: controlar errores</h3>
+<p>Si el usuario escribe "abc" donde pides un número, <code>int()</code> falla y el programa se detiene. Con <code>try</code> intentas algo y con <code>except</code> decides qué hacer si falla.</p>
+<pre><code>try:
+    edad = int(input("Edad: "))
+    print(f"El próximo año tendrás {edad + 1}")
+except ValueError:
+    print("Escribe solo números, por favor")</code></pre>
+<h3>2. Validar en un bucle</h3>
+<pre><code>while True:
+    try:
+        n = int(input("Número del 1 al 10: "))
+        if 1 &lt;= n &lt;= 10:
+            break
+        print("Fuera de rango")
+    except ValueError:
+        print("Eso no es un número")</code></pre>
+<h3>3. Archivos de texto</h3>
+<pre><code>with open("notas.txt", "w") as f:   # "w" escribe (borra lo anterior)
+    f.write("Primera línea\n")
+with open("notas.txt", "a") as f:   # "a" agrega al final
+    f.write("Segunda línea\n")
+with open("notas.txt", "r") as f:   # "r" lee
+    print(f.read())</code></pre>
+<p><code>with</code> cierra el archivo automáticamente al terminar el bloque, incluso si hay un error.</p>
+<h2>Conceptos a fondo</h2>
+<h3>Qué errores sí conviene atrapar</h3>
+<p>Atrapa los que dependen del usuario o del entorno: <code>ValueError</code> (dato inválido), <code>ZeroDivisionError</code> (dividir entre 0), <code>FileNotFoundError</code> (el archivo no existe). No uses un <code>except</code> vacío para esconder todo: perderás los mensajes que te ayudan a corregir tu código.</p>
+<pre><code>try:
+    with open("datos.txt") as f:
+        print(f.read())
+except FileNotFoundError:
+    print("Aún no existe datos.txt")</code></pre>
+<h3>Leer línea por línea</h3>
+<pre><code>with open("notas.txt") as f:
+    for linea in f:
+        print(linea.strip())</code></pre>
+<h3>Errores comunes</h3>
+<ul><li>Usar <code>"w"</code> cuando querías agregar: borra todo el contenido anterior.</li><li>Olvidar el <code>\n</code> y que todo quede en una sola línea.</li><li>Ejecutar el programa desde otra carpeta y no encontrar el archivo.</li></ul>
+<h2>Ejercicios en clase</h2>
+<ul class="ex" data-day="7">
+<li><input type="checkbox"><span>Pide un número y avisa con <code>try/except</code> si el usuario escribe letras.</span></li>
+<li><input type="checkbox"><span>Pide dos números y divide; controla <code>ZeroDivisionError</code>.</span></li>
+<li><input type="checkbox"><span>Escribe 3 líneas en un archivo <code>diario.txt</code> y luego léelas.</span></li>
+<li><input type="checkbox"><span>Agrega una línea nueva al archivo con modo <code>"a"</code> sin borrar lo anterior.</span></li>
+</ul>
+<h2>Proyecto integrador: Agenda de contactos</h2>
+<div class="box t">
+<p>Menú con <code>while</code>: 1) agregar contacto, 2) ver contactos, 3) buscar por nombre, 4) guardar y salir. Los contactos viven en un diccionario nombre → teléfono y se guardan en <code>agenda.txt</code>.</p>
+<p>Usa: diccionarios, funciones, <code>while</code>, <code>if/elif</code>, <code>try/except</code> y archivos.</p>
+</div>
+<details><summary>Ver solución</summary><pre><code>def cargar():
+    datos = {}
+    try:
+        with open("agenda.txt") as f:
+            for linea in f:
+                nombre, tel = linea.strip().split(",")
+                datos[nombre] = tel
+    except FileNotFoundError:
+        pass
+    return datos
+
+def guardar(datos):
+    with open("agenda.txt", "w") as f:
+        for nombre, tel in datos.items():
+            f.write(f"{nombre},{tel}\n")
+
+agenda = cargar()
+while True:
+    print("\n1) Agregar  2) Ver  3) Buscar  4) Salir")
+    op = input("Opción: ")
+    if op == "1":
+        agenda[input("Nombre: ")] = input("Teléfono: ")
+    elif op == "2":
+        for n, t in agenda.items():
+            print(f"{n}: {t}")
+    elif op == "3":
+        n = input("Buscar: ")
+        print(agenda.get(n, "No existe"))
+    elif op == "4":
+        guardar(agenda)
+        print("Guardado")
+        break</code></pre></details>
+<h2>Práctica extra</h2>
+<ul class="ex" data-day="7"><li><input type="checkbox"><span>Cuenta cuántas líneas tiene un archivo de texto.</span></li><li><input type="checkbox"><span>Crea una función <code>pedir_entero(mensaje)</code> que repita hasta recibir un número válido.</span></li><li><input type="checkbox"><span>Guarda en un archivo el historial de intentos de tu juego de adivinar el número.</span></li><li><input type="checkbox"><span>Agrega a la agenda la opción de eliminar un contacto.</span></li></ul>
+<h2>Tarea 7 (reto final)</h2>
+<div class="box t">
+<p><b>A)</b> Mejora la agenda: evita contactos repetidos y pide confirmación antes de borrar.</p>
+<p><b>B) Registro de gastos:</b> pide gastos (concepto y monto) hasta escribir "fin", guárdalos en un archivo y muestra el total.</p>
+<p><b>C)</b> Valida que todos los montos sean números positivos con <code>try/except</code>.</p>
+</div>
+</article><article class="cap" id="d8"><header class="ch"><p class="lab">Día 8</p><h1>Funciones a fondo</h1></header><h3>Objetivo</h3><p>Escribir funciones flexibles, que reciban y devuelvan varios datos, y entender dónde vive cada variable.</p>
+<h3>1. Parámetros con nombre y por defecto</h3>
+<pre><code>def precio_final(precio, iva=0.16, descuento=0):
+    return precio * (1 + iva) - descuento
+
+print(precio_final(100))                  # 116.0
+print(precio_final(100, descuento=10))    # 106.0 (argumento con nombre)</code></pre>
+<h3>2. Devolver varios valores</h3>
+<pre><code>def stats(lista):
+    return min(lista), max(lista), sum(lista) / len(lista)
+
+menor, mayor, prom = stats([4, 9, 7])
+print(menor, mayor, prom)</code></pre>
+<h3>3. Alcance (scope)</h3>
+<p>Las variables creadas dentro de una función son <b>locales</b>: nacen y mueren con ella. Lo que está fuera es <b>global</b> y se puede leer, pero no conviene modificarlo. Pasa datos por parámetros y recíbelos con <code>return</code>.</p>
+<h3>4. Docstrings y funciones que llaman funciones</h3>
+<pre><code>def es_par(n):
+    """Devuelve True si n es par."""
+    return n % 2 == 0
+
+def contar_pares(lista):
+    return len([x for x in lista if es_par(x)])</code></pre>
+<div class="box">Regla de oro: una función hace <b>una</b> tarea y su nombre dice cuál es (<code>calcular_total</code>, no <code>funcion1</code>).</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex"><li><input type="checkbox"><span>Crea <code>descuento(precio, porcentaje=10)</code> que devuelva el precio con descuento.</span></li><li><input type="checkbox"><span>Crea <code>min_max(lista)</code> que devuelva el menor y el mayor sin usar <code>min</code> ni <code>max</code>.</span></li><li><input type="checkbox"><span>Crea <code>es_primo(n)</code> y úsala para imprimir los primos del 1 al 50.</span></li><li><input type="checkbox"><span>Demuestra el error por alcance: crea una variable dentro de una función e intenta imprimirla afuera.</span></li></ul>
+<h2>Tarea 8</h2>
+<div class="box t"><p><b>A)</b> Una función <code>calificar(nota)</code> que devuelva "A", "B", "C" o "Reprobado".</p><p><b>B)</b> Una función <code>invertir(texto)</code> y otra <code>es_palindromo(texto)</code> que use la primera.</p><p><b>C)</b> Una función <code>factorial(n)</code> y otra <code>combinaciones(n, k)</code> que la reutilice.</p></div></article><article class="cap" id="d9"><header class="ch"><p class="lab">Día 9</p><h1>Módulos y librerías</h1></header><h3>Objetivo</h3><p>Usar código que ya existe (módulos) y organizar tu propio código en varios archivos.</p>
+<h3>1. Importar módulos</h3>
+<pre><code>import math
+from random import randint, choice
+from datetime import datetime
+
+print(math.sqrt(49), math.pi)
+print(randint(1, 6), choice(["rojo", "azul"]))
+print(datetime.now().strftime("%d/%m/%Y %H:%M"))</code></pre>
+<p>Python trae cientos de módulos listos ("baterías incluidas"). Para ver qué ofrece uno, usa <code>help(math)</code> o <code>dir(math)</code>.</p>
+<h3>2. Crear tu propio módulo</h3>
+<p>Cualquier archivo <code>.py</code> es un módulo. Crea <code>utiles.py</code> en la misma carpeta:</p>
+<pre><code># utiles.py
+def saludar(nombre):
+    return f"Hola, {nombre}"
+
+if __name__ == "__main__":
+    print(saludar("prueba"))   # solo corre si ejecutas este archivo</code></pre>
+<p>Y úsalo desde otro archivo:</p>
+<pre><code>import utiles
+print(utiles.saludar("Ana"))</code></pre>
+<div class="box"><code>if __name__ == "__main__":</code> evita que el código de prueba se ejecute cuando otro archivo importa tu módulo.</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex"><li><input type="checkbox"><span>Calcula el área y el perímetro de un círculo con <code>math.pi</code>.</span></li><li><input type="checkbox"><span>Simula lanzar un dado 10 veces con <code>randint</code> y cuenta cuántos 6 salen.</span></li><li><input type="checkbox"><span>Muestra la fecha de hoy con formato día/mes/año.</span></li><li><input type="checkbox"><span>Crea <code>utiles.py</code> con dos funciones y úsalas desde <code>main.py</code>.</span></li></ul>
+<h2>Tarea 9</h2>
+<div class="box t"><p><b>A)</b> Pide una fecha de nacimiento (día, mes, año) y calcula la edad exacta con <code>datetime</code>.</p><p><b>B)</b> Módulo <code>geometria.py</code> con áreas de círculo, rectángulo y triángulo, y un programa que lo use.</p><p><b>C)</b> Generador de contraseñas: longitud pedida, con letras y números al azar (<code>random.choice</code>).</p></div></article><article class="cap" id="d10"><header class="ch"><p class="lab">Día 10</p><h1>JSON, CSV y proyecto</h1></header><h3>Objetivo</h3><p>Guardar y recuperar datos estructurados con JSON y CSV, y cerrar la semana 2 con un proyecto.</p>
+<h3>1. JSON: diccionarios en archivo</h3>
+<pre><code>import json
+datos = {"nombre": "Ana", "notas": [9, 8, 10]}
+with open("alumno.json", "w") as f:
+    json.dump(datos, f, indent=2)
+with open("alumno.json") as f:
+    leido = json.load(f)
+print(leido["notas"])</code></pre>
+<h3>2. CSV: tablas en archivo</h3>
+<pre><code>import csv
+with open("gastos.csv", "w", newline="") as f:
+    w = csv.writer(f)
+    w.writerow(["concepto", "monto"])
+    w.writerow(["tacos", 85])
+with open("gastos.csv") as f:
+    for fila in csv.reader(f):
+        print(fila)</code></pre>
+<div class="box">JSON sirve para datos con estructura (diccionarios y listas); CSV para tablas que abrirás en Excel.</div>
+<h2>Ejercicios en clase</h2>
+<ul class="ex"><li><input type="checkbox"><span>Guarda una lista de 3 diccionarios en un JSON y léela de vuelta.</span></li><li><input type="checkbox"><span>Crea un CSV con 3 productos y precios, y suma la columna de precios al leerlo.</span></li><li><input type="checkbox"><span>Controla con <code>try/except</code> el caso de que el JSON no exista todavía.</span></li></ul>
+<h2>Proyecto de la semana 2: Control de gastos</h2>
+<div class="box t"><p>Menú con <code>while</code>: 1) registrar gasto (concepto, monto, fecha), 2) ver gastos y total, 3) buscar por concepto, 4) salir. Los datos se guardan en <code>gastos.json</code> y las funciones viven en un módulo aparte.</p><p>Usa: funciones, módulos, diccionarios, <code>try/except</code>, JSON y <code>datetime</code>.</p></div>
+<h2>Tarea 10</h2>
+<div class="box t"><p><b>A)</b> Agrega al proyecto un reporte por mes y la opción de exportar a CSV.</p><p><b>B)</b> Valida montos (números positivos) y evita conceptos vacíos.</p></div></article><article class="cap" id="e2"><header class="ch"><p class="lab">Examen</p><h1>Semana 2</h1></header><p>Responde en <b>Google Forms</b> con respuesta de párrafo (2 a 4 líneas, con tus propias palabras). Cada pregunta teórica vale 10 puntos y el programa 50.</p><h2>Parte teórica</h2><ol><li>¿Cuál es la diferencia entre una lista y un diccionario? ¿Cuándo usar cada uno?</li><li>¿Qué significa que un texto sea inmutable? Da un ejemplo.</li><li>Explica la diferencia entre <code>return</code> y <code>print</code> en una función.</li><li>¿Para qué sirven <code>try</code> y <code>except</code>? Menciona un error común que se atrapa.</li><li>¿Qué es un módulo y en qué se diferencian JSON y CSV?</li></ol><h2>Parte práctica (pregunta 6)</h2><div class="box t"><p>Función que reciba una lista de diccionarios con <code>nombre</code> y <code>nota</code>, devuelva el nombre del alumno con mejor nota y guarde la lista completa en un archivo JSON.</p><p>Pega tu código completo en la respuesta del formulario.</p></div></article><div class="part"><p class="lab">Parte 3</p><h2>Semana 3</h2></div><article class="cap" id="d11"><header class="ch"><p class="lab">Día 11</p><h1>Clases y objetos</h1></header><h3>Objetivo</h3><p>Modelar cosas reales con clases y crear objetos a partir de ellas.</p><p>Una clase es el molde y un objeto es cada pieza hecha con ese molde. <code>__init__</code> se ejecuta al crear el objeto y <code>self</code> es el objeto mismo; con <code>self.nombre</code> guardas datos (atributos) y con <code>def</code> dentro de la clase defines acciones (métodos).</p><pre><code>class Persona:
+    def __init__(self, nombre, edad):
+        self.nombre = nombre
+        self.edad = edad
+    def saludar(self):
+        return f"Hola, soy {self.nombre}"
+
+ana = Persona("Ana", 20)
+print(ana.saludar(), ana.edad)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Crea la clase <code>Mascota</code> con nombre y especie, y un método <code>presentarse</code>.</span></li><li><input type="checkbox"><span>Crea 3 mascotas, guárdalas en una lista y recórrela con <code>for</code>.</span></li><li><input type="checkbox"><span>Agrega el método <code>cumplir_anios</code> que sume 1 a la edad.</span></li><li><input type="checkbox"><span>Crea dos objetos y comprueba que cambiar uno no afecta al otro.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Clase <code>Rectangulo</code> con <code>area()</code> y <code>perimetro()</code>.</p><p><b>B)</b> Clase <code>Libro</code> (titulo, autor, paginas) con un método <code>descripcion()</code>.</p><p><b>C)</b> Clase <code>Alumno</code> con una lista de notas y un método <code>promedio()</code>.</p></div></article><article class="cap" id="d12"><header class="ch"><p class="lab">Día 12</p><h1>Métodos y estado del objeto</h1></header><h3>Objetivo</h3><p>Hacer que los métodos cambien el estado del objeto y se muestren con <code>__str__</code>.</p><p>El estado de un objeto son los valores de sus atributos en cada momento. Los métodos pueden leerlo o modificarlo. <code>__str__</code> define cómo se ve el objeto al usar <code>print</code>.</p><pre><code>class Cuenta:
+    def __init__(self, titular, saldo=0):
+        self.titular = titular
+        self.saldo = saldo
+    def depositar(self, monto):
+        if monto &gt; 0:
+            self.saldo += monto
+    def retirar(self, monto):
+        if 0 &lt; monto &lt;= self.saldo:
+            self.saldo -= monto
+            return True
+        return False
+    def __str__(self):
+        return f"{self.titular}: ${self.saldo}"
+
+c = Cuenta("Luis", 100)
+c.depositar(50)
+print(c)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Prueba <code>retirar</code> con un monto mayor al saldo y muestra el mensaje adecuado.</span></li><li><input type="checkbox"><span>Agrega <code>transferir(otra_cuenta, monto)</code>.</span></li><li><input type="checkbox"><span>Crea una lista de 3 cuentas y muestra el saldo total.</span></li><li><input type="checkbox"><span>Agrega un historial (lista) que guarde cada movimiento.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Clase <code>Contador</code> con <code>sumar</code>, <code>restar</code> y <code>reiniciar</code>.</p><p><b>B)</b> Clase <code>Producto</code> con stock y métodos <code>vender</code> y <code>reabastecer</code>.</p></div></article><article class="cap" id="d13"><header class="ch"><p class="lab">Día 13</p><h1>Herencia</h1></header><h3>Objetivo</h3><p>Reutilizar código creando clases que heredan de otras.</p><p>Una clase hija hereda atributos y métodos de la clase padre y puede añadir o sobrescribir los suyos. <code>super()</code> llama al padre. Úsala cuando "A es un tipo de B" (un perro es un animal).</p><pre><code>class Animal:
+    def __init__(self, nombre):
+        self.nombre = nombre
+    def hablar(self):
+        return "..."
+
+class Perro(Animal):
+    def hablar(self):
+        return "Guau"
+
+class Gato(Animal):
+    def __init__(self, nombre, color):
+        super().__init__(nombre)
+        self.color = color
+    def hablar(self):
+        return "Miau"
+
+for a in [Perro("Rex"), Gato("Mía", "gris")]:
+    print(a.nombre, a.hablar())</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Crea <code>Vehiculo</code> (marca) y las hijas <code>Auto</code> y <code>Moto</code> con método <code>describir</code>.</span></li><li><input type="checkbox"><span>Agrega un atributo propio a cada hija usando <code>super().__init__</code>.</span></li><li><input type="checkbox"><span>Recorre una lista con objetos de distintas clases y llama el mismo método.</span></li><li><input type="checkbox"><span>Prueba <code>isinstance(obj, Animal)</code>.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> <code>Empleado</code> con <code>salario()</code> y las hijas <code>Gerente</code> y <code>Programador</code> con salario distinto.</p><p><b>B)</b> Jerarquía <code>Figura</code> → <code>Circulo</code>, <code>Cuadrado</code> con <code>area()</code>.</p></div></article><article class="cap" id="d14"><header class="ch"><p class="lab">Día 14</p><h1>Encapsulamiento y propiedades</h1></header><h3>Objetivo</h3><p>Proteger los datos del objeto y validarlos con <code>@property</code>.</p><p>Por convención, un atributo que empieza con guion bajo (<code>_saldo</code>) significa "no lo toques desde fuera". Con <code>@property</code> expones el dato como si fuera normal pero controlas qué se lee y se escribe.</p><pre><code>class Termometro:
+    def __init__(self):
+        self._celsius = 0
+    @property
+    def celsius(self):
+        return self._celsius
+    @celsius.setter
+    def celsius(self, valor):
+        if valor &lt; -273.15:
+            raise ValueError("Imposible")
+        self._celsius = valor
+    @property
+    def fahrenheit(self):
+        return self._celsius * 9 / 5 + 32
+
+t = Termometro()
+t.celsius = 25
+print(t.fahrenheit)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Haz que el saldo de <code>Cuenta</code> sea <code>_saldo</code> con una property de solo lectura.</span></li><li><input type="checkbox"><span>Valida que la edad de <code>Persona</code> no sea negativa.</span></li><li><input type="checkbox"><span>Atrapa con <code>try/except</code> el <code>ValueError</code> del termómetro.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Clase <code>Alumno</code> con property <code>promedio</code> calculada de sus notas.</p><p><b>B)</b> Clase <code>Circulo</code> con property <code>area</code> y radio validado (positivo).</p></div></article><article class="cap" id="d15"><header class="ch"><p class="lab">Día 15</p><h1>Proyecto del mes: Sistema de inventario</h1></header><h3>Objetivo</h3><p>Integrar clases, listas, errores y archivos en un programa completo.</p><p>Diseña dos clases: <code>Producto</code> (nombre, precio, cantidad) e <code>Inventario</code> (lista de productos con métodos agregar, vender, buscar y total). Guarda y carga con JSON. Primero haz las clases, luego el menú.</p><pre><code>class Producto:
+    def __init__(self, nombre, precio, cantidad):
+        self.nombre, self.precio, self.cantidad = nombre, precio, cantidad
+
+class Inventario:
+    def __init__(self):
+        self.productos = []
+    def agregar(self, p):
+        self.productos.append(p)
+    def buscar(self, nombre):
+        for p in self.productos:
+            if p.nombre == nombre:
+                return p
+        return None
+    def total(self):
+        return sum(p.precio * p.cantidad for p in self.productos)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Completa <code>vender(nombre, cantidad)</code> con validación de stock.</span></li><li><input type="checkbox"><span>Agrega guardar y cargar en <code>inventario.json</code>.</span></li><li><input type="checkbox"><span>Crea el menú con <code>while</code> y las opciones del inventario.</span></li><li><input type="checkbox"><span>Muestra los productos con menos de 5 unidades.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Agrega categorías y un reporte por categoría.</p><p><b>B)</b> Evita nombres de producto duplicados.</p></div></article><article class="cap" id="e3"><header class="ch"><p class="lab">Examen</p><h1>Semana 3</h1></header><p>Responde en <b>Google Forms</b> con respuesta de párrafo (2 a 4 líneas, con tus propias palabras). Cada pregunta teórica vale 10 puntos y el programa 50.</p><h2>Parte teórica</h2><ol><li>¿Qué diferencia hay entre una clase y un objeto?</li><li>¿Qué representa <code>self</code> en un método?</li><li>¿Para qué sirve el método <code>__init__</code>?</li><li>Explica qué es la herencia y para qué sirve <code>super()</code>.</li><li>¿Qué es el encapsulamiento y cómo ayuda <code>@property</code>?</li></ol><h2>Parte práctica (pregunta 6)</h2><div class="box t"><p>Clase <code>CuentaBancaria</code> con titular y saldo, métodos <code>depositar</code> y <code>retirar</code> (sin permitir saldo negativo) y <code>__str__</code>.</p><p>Pega tu código completo en la respuesta del formulario.</p></div></article><div class="part"><p class="lab">Parte 4</p><h2>Semana 4</h2></div><article class="cap" id="d16"><header class="ch"><p class="lab">Día 16</p><h1>Tuplas y conjuntos</h1></header><h3>Objetivo</h3><p>Conocer dos estructuras más: la tupla (inmutable) y el conjunto (sin repetidos).</p><p>Una tupla es como una lista que no se puede modificar; sirve para datos fijos como coordenadas. Un conjunto (<code>set</code>) no guarda repetidos y permite operaciones de unión e intersección.</p><pre><code>punto = (3, 5)
+x, y = punto
+a = {1, 2, 3, 3}          # {1, 2, 3}
+b = {3, 4}
+print(a | b, a &amp; b, a - b)  # unión, intersección, diferencia
+print(set([1, 1, 2, 2]))    # quitar repetidos</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Quita los repetidos de una lista de 10 números.</span></li><li><input type="checkbox"><span>Dadas dos listas de alumnos, muestra los que están en ambas.</span></li><li><input type="checkbox"><span>Guarda 3 coordenadas como tuplas y calcula la distancia entre dos.</span></li><li><input type="checkbox"><span>Intenta modificar una tupla y lee el error.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Cuenta palabras distintas de una frase con un set.</p><p><b>B)</b> Compara dos textos y muestra las letras que comparten.</p></div></article><article class="cap" id="d17"><header class="ch"><p class="lab">Día 17</p><h1>Comprensiones</h1></header><h3>Objetivo</h3><p>Crear listas y diccionarios nuevos en una sola línea.</p><p>Una comprensión es un <code>for</code> compacto que construye una colección. Es más corta y se lee bien cuando la lógica es simple.</p><pre><code>cuadrados = [n ** 2 for n in range(1, 6)]
+pares = [n for n in range(20) if n % 2 == 0]
+longitudes = {p: len(p) for p in ["sol", "luna"]}
+print(cuadrados, pares, longitudes)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Genera los cubos del 1 al 10.</span></li><li><input type="checkbox"><span>Filtra las palabras de una lista que empiecen con vocal.</span></li><li><input type="checkbox"><span>Crea un diccionario número → su cuadrado.</span></li><li><input type="checkbox"><span>Convierte una lista de textos a mayúsculas.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> De una lista de edades, saca solo las mayores de 17.</p><p><b>B)</b> Crea un diccionario con la longitud de cada palabra de una frase.</p></div></article><article class="cap" id="d18"><header class="ch"><p class="lab">Día 18</p><h1>Pilas y colas</h1></header><h3>Objetivo</h3><p>Entender estructuras con reglas de entrada y salida.</p><p>Una pila es LIFO: el último en entrar es el primero en salir (como un montón de platos). Una cola es FIFO: el primero en entrar es el primero en salir (como una fila). Para colas usa <code>deque</code>, que es rápida en ambos extremos.</p><pre><code>from collections import deque
+pila = []
+pila.append(1); pila.append(2)
+print(pila.pop())      # 2
+
+cola = deque()
+cola.append("A"); cola.append("B")
+print(cola.popleft())  # A</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Invierte un texto usando una pila.</span></li><li><input type="checkbox"><span>Simula una fila de banco con una cola.</span></li><li><input type="checkbox"><span>Verifica si los paréntesis de una expresión están balanceados con una pila.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Historial de "deshacer" con una pila.</p><p><b>B)</b> Cola de impresión con nombres de documentos.</p></div></article><article class="cap" id="d19"><header class="ch"><p class="lab">Día 19</p><h1>Búsqueda y ordenamiento</h1></header><h3>Objetivo</h3><p>Implementar algoritmos clásicos y entender su costo.</p><p>La búsqueda lineal revisa uno por uno. La búsqueda binaria divide la lista ordenada a la mitad en cada paso y es mucho más rápida. El ordenamiento burbuja compara pares vecinos e intercambia.</p><pre><code>def binaria(lista, x):
+    ini, fin = 0, len(lista) - 1
+    while ini &lt;= fin:
+        medio = (ini + fin) // 2
+        if lista[medio] == x:
+            return medio
+        elif lista[medio] &lt; x:
+            ini = medio + 1
+        else:
+            fin = medio - 1
+    return -1
+
+def burbuja(l):
+    for i in range(len(l)):
+        for j in range(len(l) - 1 - i):
+            if l[j] &gt; l[j + 1]:
+                l[j], l[j + 1] = l[j + 1], l[j]
+    return l</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Haz una prueba de escritorio de <code>burbuja([4, 2, 3])</code>.</span></li><li><input type="checkbox"><span>Implementa la búsqueda lineal.</span></li><li><input type="checkbox"><span>Cuenta cuántos pasos da la binaria en una lista de 1000 elementos.</span></li><li><input type="checkbox"><span>Ordena una lista de nombres alfabéticamente.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Implementa ordenamiento por selección.</p><p><b>B)</b> Compara los tiempos de lineal y binaria con <code>time</code>.</p></div></article><article class="cap" id="d20"><header class="ch"><p class="lab">Día 20</p><h1>Proyecto del mes: Gestor de tareas</h1></header><h3>Objetivo</h3><p>Aplicar clases, estructuras de datos y archivos en un proyecto propio.</p><p>Crea una clase <code>Tarea</code> (titulo, prioridad, hecha) y una clase <code>Gestor</code> que agregue, complete, elimine y ordene por prioridad. Guarda todo en JSON y permite filtrar pendientes y completadas con comprensiones.</p><pre><code>class Tarea:
+    def __init__(self, titulo, prioridad=1):
+        self.titulo, self.prioridad, self.hecha = titulo, prioridad, False
+
+class Gestor:
+    def __init__(self):
+        self.tareas = []
+    def pendientes(self):
+        return [t for t in self.tareas if not t.hecha]
+    def ordenadas(self):
+        return sorted(self.tareas, key=lambda t: t.prioridad)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Agrega <code>completar(titulo)</code> y <code>eliminar(titulo)</code>.</span></li><li><input type="checkbox"><span>Guarda y carga las tareas desde <code>tareas.json</code>.</span></li><li><input type="checkbox"><span>Crea el menú principal con <code>while</code>.</span></li><li><input type="checkbox"><span>Agrega fecha límite con <code>datetime</code>.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Muestra un resumen: total, pendientes y porcentaje completado.</p><p><b>B)</b> Agrega búsqueda por palabra clave.</p></div></article><article class="cap" id="e4"><header class="ch"><p class="lab">Examen</p><h1>Semana 4</h1></header><p>Responde en <b>Google Forms</b> con respuesta de párrafo (2 a 4 líneas, con tus propias palabras). Cada pregunta teórica vale 10 puntos y el programa 50.</p><h2>Parte teórica</h2><ol><li>¿Qué diferencia hay entre una tupla y una lista?</li><li>¿Qué características tiene un conjunto (<code>set</code>)?</li><li>¿Qué ventaja tiene una comprensión de listas?</li><li>Explica la diferencia entre una pila y una cola.</li><li>¿Qué requisito tiene la búsqueda binaria y por qué es más rápida que la lineal?</li></ol><h2>Parte práctica (pregunta 6)</h2><div class="box t"><p>Función <code>binaria(lista, x)</code> que devuelva la posición de x en una lista ordenada, o -1 si no existe.</p><p>Pega tu código completo en la respuesta del formulario.</p></div></article><div class="part"><p class="lab">Parte 5</p><h2>Semana 5</h2></div><article class="cap" id="d21"><header class="ch"><p class="lab">Día 21</p><h1>Git y control de versiones</h1></header><h3>Objetivo</h3><p>Guardar el historial de tu proyecto y subirlo a GitHub.</p><p>Git registra cada cambio de tu código como una "foto" llamada commit. Te permite volver atrás, probar ideas en ramas y colaborar. GitHub es el sitio donde se guarda el repositorio en línea. Estos comandos van en la terminal, no en Python.</p><pre><code>git init
+git add .
+git commit -m "Primera versión"
+git branch nueva-funcion
+git switch nueva-funcion
+git remote add origin URL_DE_TU_REPO
+git push -u origin main</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Instala Git y configura <code>git config --global user.name</code>.</span></li><li><input type="checkbox"><span>Crea un repositorio con tu proyecto del día 20.</span></li><li><input type="checkbox"><span>Haz 3 commits con mensajes claros.</span></li><li><input type="checkbox"><span>Crea un repositorio en GitHub y súbelo.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Crea una rama, cambia algo y fusiónala con <code>git merge</code>.</p><p><b>B)</b> Agrega un archivo <code>.gitignore</code> y un <code>README.md</code>.</p></div></article><article class="cap" id="d22"><header class="ch"><p class="lab">Día 22</p><h1>APIs con requests</h1></header><h3>Objetivo</h3><p>Pedir datos a servicios en internet y usarlos en tu programa.</p><p>Una API es una dirección web que responde datos, casi siempre en JSON. Instala la librería con <code>pip install requests</code>, haz una petición y convierte la respuesta en diccionario con <code>.json()</code>. Revisa siempre <code>status_code</code>: 200 significa éxito.</p><pre><code>import requests
+r = requests.get("https://api.github.com/users/octocat")
+if r.status_code == 200:
+    datos = r.json()
+    print(datos["name"], datos["public_repos"])
+else:
+    print("Error", r.status_code)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Instala <code>requests</code> y pide los datos de un usuario de GitHub.</span></li><li><input type="checkbox"><span>Muestra solo 3 campos de la respuesta.</span></li><li><input type="checkbox"><span>Controla errores de conexión con <code>try/except</code>.</span></li><li><input type="checkbox"><span>Pide una API pública (por ejemplo de chistes o del clima) y muestra un dato.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Programa que pida un usuario de GitHub y muestre sus repositorios.</p><p><b>B)</b> Guarda la respuesta en un archivo JSON.</p></div></article><article class="cap" id="d23"><header class="ch"><p class="lab">Día 23</p><h1>Pruebas y depuración</h1></header><h3>Objetivo</h3><p>Comprobar que tu código funciona y encontrar errores con método.</p><p>Una prueba es código que verifica otro código. <code>assert</code> falla si la condición es falsa. Para depurar: reproduce el error, imprime valores intermedios, aísla la función y corrige una cosa a la vez.</p><pre><code>def es_par(n):
+    return n % 2 == 0
+
+assert es_par(4) is True
+assert es_par(7) is False
+
+import unittest
+class PruebaPar(unittest.TestCase):
+    def test_par(self):
+        self.assertTrue(es_par(10))
+unittest.main(argv=["x"], exit=False)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Escribe 5 <code>assert</code> para tu función <code>factorial</code>.</span></li><li><input type="checkbox"><span>Crea una clase de pruebas con <code>unittest</code> para <code>Cuenta</code>.</span></li><li><input type="checkbox"><span>Introduce un error a propósito y encuéntralo con <code>print</code>.</span></li><li><input type="checkbox"><span>Prueba casos límite: lista vacía, cero y negativos.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Prueba <code>es_primo</code> con al menos 8 casos.</p><p><b>B)</b> Prueba las clases de tu inventario.</p></div></article><article class="cap" id="d24"><header class="ch"><p class="lab">Día 24</p><h1>Introducción a Flask</h1></header><h3>Objetivo</h3><p>Crear tu primera página web con Python.</p><p>Flask es un microframework web. Cada función decorada con <code>@app.route</code> responde a una dirección. Instala con <code>pip install flask</code>, ejecuta el archivo y abre <code>http://127.0.0.1:5000</code>.</p><pre><code>from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def inicio():
+    return "&lt;h1&gt;Hola desde Flask&lt;/h1&gt;"
+
+@app.route("/saludo/&lt;nombre&gt;")
+def saludo(nombre):
+    return f"Hola, {nombre}"
+
+if __name__ == "__main__":
+    app.run(debug=True)</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Instala Flask y levanta la página de inicio.</span></li><li><input type="checkbox"><span>Crea la ruta <code>/saludo/&lt;nombre&gt;</code>.</span></li><li><input type="checkbox"><span>Crea una ruta <code>/hora</code> que muestre la hora actual.</span></li><li><input type="checkbox"><span>Muestra una lista de tareas en HTML desde una lista de Python.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Ruta <code>/api/tareas</code> que devuelva JSON con <code>jsonify</code>.</p><p><b>B)</b> Página con un formulario simple que pida un nombre.</p></div></article><article class="cap" id="d25"><header class="ch"><p class="lab">Día 25</p><h1>Proyecto final</h1></header><h3>Objetivo</h3><p>Construir un proyecto propio que junte todo el curso.</p><p>Elige una idea y defínela en una frase: qué problema resuelve y quién la usa. Ejemplos: control de gastos con clases y JSON, bot de consultas con una API, mini tienda con Flask. Entrega código en GitHub, un README y pruebas básicas.</p><pre><code># Estructura sugerida
+proyecto/
+    main.py
+    modelos.py     # clases
+    datos.py       # JSON / archivos
+    pruebas.py     # asserts
+    README.md</code></pre><h2>Ejercicios en clase</h2><ul class="ex"><li><input type="checkbox"><span>Escribe en una frase qué hará tu proyecto.</span></li><li><input type="checkbox"><span>Diseña las clases y funciones en papel antes de programar.</span></li><li><input type="checkbox"><span>Implementa la primera versión funcional.</span></li><li><input type="checkbox"><span>Agrega validación de errores y pruebas.</span></li></ul><h2>Tarea</h2><div class="box t"><p><b>A)</b> Sube el proyecto a GitHub con un <code>README</code> claro.</p><p><b>B)</b> Presenta tu proyecto en 3 minutos explicando qué aprendiste.</p></div></article><article class="cap" id="e5"><header class="ch"><p class="lab">Examen</p><h1>Semana 5</h1></header><p>Responde en <b>Google Forms</b> con respuesta de párrafo (2 a 4 líneas, con tus propias palabras). Cada pregunta teórica vale 10 puntos y el programa 50.</p><h2>Parte teórica</h2><ol><li>¿Qué es Git y qué es un commit?</li><li>¿Qué es una API y por qué se usa JSON para sus respuestas?</li><li>¿Para qué sirve <code>assert</code> y qué es una prueba unitaria?</li><li>¿Qué es una ruta en Flask?</li><li>¿Para qué sirve <code>pip</code> y por qué conviene usar un entorno virtual?</li></ol><h2>Parte práctica (pregunta 6)</h2><div class="box t"><p>Función <code>es_palindromo(texto)</code> ignorando mayúsculas y espacios, con al menos 3 pruebas usando <code>assert</code>.</p><p>Pega tu código completo en la respuesta del formulario.</p></div></article><article class="cap" id="fin"><header class="ch"><p class="lab">Epílogo</p><h1>Lo que lograste</h1></header><p>Completaste 25 clases y 5 exámenes: de imprimir "Hola, mundo" a construir proyectos con clases, estructuras de datos, archivos, APIs, pruebas, Git y Flask. Lo que sigue es practicar con proyectos propios: sube cada uno a GitHub y agrégalo a tu portafolio.</p><div class="box">Siguientes caminos: desarrollo web con Django, datos con pandas, automatización o bots.</div></article></main>
+<a class="top" href="#indice">Índice</a><script>document.querySelectorAll("pre").forEach(function(p){var b=document.createElement("button");b.className="cp";b.textContent="Copiar";b.onclick=function(){var t=p.querySelector("code").innerText;try{navigator.clipboard.writeText(t);b.textContent="Copiado"}catch(e){b.textContent="Selecciona y copia"}setTimeout(function(){b.textContent="Copiar"},1500)};p.appendChild(b)});
+var boxes=document.querySelectorAll(".ex input"),saved={},key="py1";
+try{saved=JSON.parse(localStorage.getItem(key)||"{}")}catch(e){}
+function prog(){var n=0;boxes.forEach(function(b){if(b.checked)n++});document.getElementById("pt").textContent="Progreso: "+n+" de "+boxes.length+" ejercicios marcados"}
+boxes.forEach(function(b,i){b.checked=!!saved[i];b.onchange=function(){saved[i]=b.checked;try{localStorage.setItem(key,JSON.stringify(saved))}catch(e){}prog()}});
+prog();
+function sc(){var h=document.documentElement.scrollHeight-innerHeight;document.getElementById("pb").style.width=(h>0?scrollY/h*100:0)+"%"}
+addEventListener("scroll",sc,{passive:true});sc();
+</script></body></html>
